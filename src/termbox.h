@@ -134,10 +134,18 @@ extern "C" {
  *  - 'fg' foreground color and attributes
  *  - 'bg' background color and attributes
  */
+struct tb_truecolor{
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+};
 struct tb_cell {
 	uint32_t ch;
-	uint16_t fg;
-	uint16_t bg;
+    uint16_t fg;
+    uint16_t bg;
+
+	struct tb_truecolor fgtrue;
+    struct tb_truecolor bgtrue;
 };
 
 #define TB_EVENT_KEY    1
@@ -194,7 +202,7 @@ SO_IMPORT int tb_height(void);
  * color/attributes set by tb_set_clear_attributes() function.
  */
 SO_IMPORT void tb_clear(void);
-SO_IMPORT void tb_set_clear_attributes(uint16_t fg, uint16_t bg);
+SO_IMPORT void tb_set_clear_attributes(uint16_t fg, uint16_t bg, struct tb_truecolor fgtrue, struct tb_truecolor bgtrue);
 
 /* Synchronizes the internal back buffer with the terminal. */
 SO_IMPORT void tb_present(void);
@@ -211,7 +219,7 @@ SO_IMPORT void tb_set_cursor(int cx, int cy);
  * position.
  */
 SO_IMPORT void tb_put_cell(int x, int y, const struct tb_cell *cell);
-SO_IMPORT void tb_change_cell(int x, int y, uint32_t ch, uint16_t fg, uint16_t bg);
+SO_IMPORT void tb_change_cell(int x, int y, uint32_t ch, uint16_t fg, uint16_t bg, struct tb_truecolor fgtrue, struct tb_truecolor bgtrue);
 
 /* Copies the buffer from 'cells' at the specified position, assuming the
  * buffer is a two-dimensional array of size ('w' x 'h'), represented as a
@@ -258,6 +266,7 @@ SO_IMPORT int tb_select_input_mode(int mode);
 #define TB_OUTPUT_256       2
 #define TB_OUTPUT_216       3
 #define TB_OUTPUT_GRAYSCALE 4
+#define TB_OUTPUT_TRUECOLOR 5
 
 /* Sets the termbox output mode. Termbox has three output options:
  * 1. TB_OUTPUT_NORMAL     => [1..8]
