@@ -2,6 +2,7 @@
 #include <string.h>
 #include "../termbox.h"
 
+struct tb_truecolor NULLCOL = {0,0,0};
 static const char chars[] = "nnnnnnnnnbbbbbbbbbuuuuuuuuuBBBBBBBBB";
 
 static const uint16_t all_attrs[] = {
@@ -24,7 +25,7 @@ static void draw_line(int x, int y, uint16_t bg) {
 	for (a = 0; a < 4; a++) {
 		for (c = TB_DEFAULT; c <= TB_WHITE; c++) {
 			uint16_t fg = all_attrs[a] | c;
-			tb_change_cell(x, y, chars[current_char], fg, bg);
+			tb_change_cell(x, y, chars[current_char], fg, bg, NULLCOL, NULLCOL);
 			current_char = next_char(current_char);
 			x++;
 		}
@@ -55,8 +56,8 @@ static void draw_all() {
 	tb_select_output_mode(TB_OUTPUT_GRAYSCALE);
 	int c, x, y;
 	for (x = 0, y = 23; x < 24; ++x) {
-		tb_change_cell(x, y, '@', x, 0);
-		tb_change_cell(x+25, y, ' ', 0, x);
+		tb_change_cell(x, y, '@', x, 0, NULLCOL, NULLCOL);
+		tb_change_cell(x+25, y, ' ', 0, x, NULLCOL, NULLCOL);
 	}
 	tb_present();
 
@@ -67,8 +68,8 @@ static void draw_all() {
 			x = 0;
 			++y;
 		}
-		tb_change_cell(x, y, '@', c, 0);
-		tb_change_cell(x+25, y, ' ', 0, c);
+		tb_change_cell(x, y, '@', c, 0, NULLCOL, NULLCOL);
+		tb_change_cell(x+25, y, ' ', 0, c, NULLCOL, NULLCOL);
 	}
 	tb_present();
 
@@ -79,8 +80,8 @@ static void draw_all() {
 			x = 0;
 			++y;
 		}
-		tb_change_cell(x, y, '+', c | ((y & 1) ? TB_UNDERLINE : 0), 0);
-		tb_change_cell(x+25, y, ' ', 0, c);
+		tb_change_cell(x, y, '+', c | ((y & 1) ? TB_UNDERLINE : 0), 0, NULLCOL, NULLCOL);
+		tb_change_cell(x+25, y, ' ', 0, c, NULLCOL, NULLCOL);
 	}
 	tb_present();
 }

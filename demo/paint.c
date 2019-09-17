@@ -17,7 +17,7 @@ static const uint32_t runes[] = {
 };
 
 #define len(a) (sizeof(a)/sizeof(a[0]))
-
+struct tb_truecolor NULLCOL = {0,0,0};
 static const uint16_t colors[] = {
 	TB_BLACK,
 	TB_RED,
@@ -39,14 +39,14 @@ void updateAndDrawButtons(int *current, int x, int y, int mx, int my, int n, voi
 		uint32_t r;
 		uint16_t fg, bg;
 		(*attrFunc)(i, &r, &fg, &bg);
-                tb_change_cell(lx+0, ly+0, r, fg, bg);
-                tb_change_cell(lx+1, ly+0, r, fg, bg);
-                tb_change_cell(lx+2, ly+0, r, fg, bg);
-                tb_change_cell(lx+3, ly+0, r, fg, bg);
-                tb_change_cell(lx+0, ly+1, r, fg, bg);
-                tb_change_cell(lx+1, ly+1, r, fg, bg);
-                tb_change_cell(lx+2, ly+1, r, fg, bg);
-                tb_change_cell(lx+3, ly+1, r, fg, bg);
+                tb_change_cell(lx+0, ly+0, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+1, ly+0, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+2, ly+0, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+3, ly+0, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+0, ly+1, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+1, ly+1, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+2, ly+1, r, fg, bg, NULLCOL, NULLCOL);
+                tb_change_cell(lx+3, ly+1, r, fg, bg, NULLCOL, NULLCOL);
                 lx += 4;
 	}
 	lx = x;
@@ -55,10 +55,10 @@ void updateAndDrawButtons(int *current, int x, int y, int mx, int my, int n, voi
                 if (*current == i) {
                         uint16_t fg = TB_RED | TB_BOLD;
                         uint16_t bg = TB_DEFAULT;
-                        tb_change_cell(lx+0, ly+2, '^', fg, bg);
-                        tb_change_cell(lx+1, ly+2, '^', fg, bg);
-                        tb_change_cell(lx+2, ly+2, '^', fg, bg);
-                        tb_change_cell(lx+3, ly+2, '^', fg, bg);
+                        tb_change_cell(lx+0, ly+2, '^', fg, bg, NULLCOL, NULLCOL);
+                        tb_change_cell(lx+1, ly+2, '^', fg, bg, NULLCOL, NULLCOL);
+                        tb_change_cell(lx+2, ly+2, '^', fg, bg, NULLCOL, NULLCOL);
+                        tb_change_cell(lx+3, ly+2, '^', fg, bg, NULLCOL, NULLCOL);
                 }
                 lx += 4;
         }

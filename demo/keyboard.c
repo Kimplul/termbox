@@ -341,12 +341,13 @@ struct combo func_combos[] = {
 	{{K_ARROW_RIGHT,0}}
 };
 
+struct tb_truecolor NULL_COL = {0, 0, 0};
 void print_tb(const char *str, int x, int y, uint16_t fg, uint16_t bg)
 {
 	while (*str) {
 		uint32_t uni;
 		str += tb_utf8_char_to_unicode(&uni, str);
-		tb_change_cell(x, y, uni, fg, bg);
+		tb_change_cell(x, y, uni, fg, bg, NULL_COL, NULL_COL);
 		x++;
 	}
 }
@@ -364,7 +365,7 @@ void printf_tb(int x, int y, uint16_t fg, uint16_t bg, const char *fmt, ...)
 void draw_key(struct key *k, uint16_t fg, uint16_t bg)
 {
 	while (k->x) {
-		tb_change_cell(k->x+2, k->y+4, k->ch, fg, bg);
+		tb_change_cell(k->x+2, k->y+4, k->ch, fg, bg, NULL_COL, NULL_COL);
 		k++;
 	}
 }
@@ -372,28 +373,28 @@ void draw_key(struct key *k, uint16_t fg, uint16_t bg)
 void draw_keyboard()
 {
 	int i;
-	tb_change_cell(0, 0, 0x250C, TB_WHITE, TB_DEFAULT);
-	tb_change_cell(79, 0, 0x2510, TB_WHITE, TB_DEFAULT);
-	tb_change_cell(0, 23, 0x2514, TB_WHITE, TB_DEFAULT);
-	tb_change_cell(79, 23, 0x2518, TB_WHITE, TB_DEFAULT);
+	tb_change_cell(0, 0, 0x250C, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+	tb_change_cell(79, 0, 0x2510, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+	tb_change_cell(0, 23, 0x2514, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+	tb_change_cell(79, 23, 0x2518, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
 
 	for (i = 1; i < 79; ++i) {
-		tb_change_cell(i, 0, 0x2500, TB_WHITE, TB_DEFAULT);
-		tb_change_cell(i, 23, 0x2500, TB_WHITE, TB_DEFAULT);
-		tb_change_cell(i, 17, 0x2500, TB_WHITE, TB_DEFAULT);
-		tb_change_cell(i, 4, 0x2500, TB_WHITE, TB_DEFAULT);
+		tb_change_cell(i, 0, 0x2500, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+		tb_change_cell(i, 23, 0x2500, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+		tb_change_cell(i, 17, 0x2500, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+		tb_change_cell(i, 4, 0x2500, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
 	}
 	for (i = 1; i < 23; ++i) {
-		tb_change_cell(0, i, 0x2502, TB_WHITE, TB_DEFAULT);
-		tb_change_cell(79, i, 0x2502, TB_WHITE, TB_DEFAULT);
+		tb_change_cell(0, i, 0x2502, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+		tb_change_cell(79, i, 0x2502, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
 	}
-	tb_change_cell(0, 17, 0x251C, TB_WHITE, TB_DEFAULT);
-	tb_change_cell(79, 17, 0x2524, TB_WHITE, TB_DEFAULT);
-	tb_change_cell(0, 4, 0x251C, TB_WHITE, TB_DEFAULT);
-	tb_change_cell(79, 4, 0x2524, TB_WHITE, TB_DEFAULT);
+	tb_change_cell(0, 17, 0x251C, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+	tb_change_cell(79, 17, 0x2524, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+	tb_change_cell(0, 4, 0x251C, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
+	tb_change_cell(79, 4, 0x2524, TB_WHITE, TB_DEFAULT, NULL_COL, NULL_COL);
 	for (i = 5; i < 17; ++i) {
-		tb_change_cell(1, i, 0x2588, TB_YELLOW, TB_YELLOW);
-		tb_change_cell(78, i, 0x2588, TB_YELLOW, TB_YELLOW);
+		tb_change_cell(1, i, 0x2588, TB_YELLOW, TB_YELLOW, NULL_COL, NULL_COL);
+		tb_change_cell(78, i, 0x2588, TB_YELLOW, TB_YELLOW, NULL_COL, NULL_COL);
 	}
 
 	draw_key(K_ESC, TB_WHITE, TB_BLUE);
